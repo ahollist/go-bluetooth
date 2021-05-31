@@ -94,7 +94,7 @@ func TestAppPassCodePersistsWithCustomAgent(t *testing.T) {
 
 	appPinCode, err2 := a.Agent().RequestPinCode(a.Agent().Path())
 	if err2 != nil {
-		t.Fatal(err)
+		t.Fatal(err2)
 	}
 
 	assert.Equal(t, passCode, appPinCode)
