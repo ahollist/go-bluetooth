@@ -1,8 +1,10 @@
 package service
 
 import (
+	"fmt"
 	"testing"
 
+	"github.com/godbus/dbus/v5"
 	"github.com/muka/go-bluetooth/api"
 	"github.com/muka/go-bluetooth/bluez/profile/agent"
 	log "github.com/sirupsen/logrus"
@@ -93,8 +95,8 @@ func TestAppPassCodePersistsWithCustomAgent(t *testing.T) {
 	defer a.Close()
 
 	appAgent := a.Agent()
-	appAgentPath := appAgent.Path()
-	appPinCode, err2 := appAgent.RequestPinCode(appAgentPath)
+	fullPath := dbus.ObjectPath(fmt.Sprintf("%s/%s", "org/bluez/hci0", string(appAgent.Path())))
+	appPinCode, err2 := appAgent.RequestPinCode(fullPath)
 	if err2 != nil {
 		t.Fatal(err2)
 	}
