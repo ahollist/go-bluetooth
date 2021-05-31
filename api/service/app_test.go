@@ -83,7 +83,9 @@ func TestAppPassCodePersistsWithCustomAgent(t *testing.T) {
 
 	ag := agent.NewSimpleAgent()
 	ag.SetPassCode(passCode)
-	opt := AppOptions{CustomAgent: ag}
+	opt := AppOptions{
+		AdapterID:   "Gopher",
+		CustomAgent: ag}
 
 	a, err := NewApp(opt)
 	if err != nil {
