@@ -99,7 +99,7 @@ func TestAppPassCodePersistsWithCustomAgent(t *testing.T) {
 	}
 
 	appAgent := a.Agent()
-	fullPath := dbus.ObjectPath(fmt.Sprintf("%s%s", "/org/bluez/hci0", string(appAgent.Path())))
+	fullPath := dbus.ObjectPath(fmt.Sprintf("%s%s", "/org/bluez/", string(appAgent.Path())))
 	appPinCode, err2 := appAgent.RequestPinCode(fullPath)
 	if err2 != nil {
 		t.Fatal(err2)
