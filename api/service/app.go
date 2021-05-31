@@ -103,7 +103,7 @@ func (app *App) init() error {
 	}
 	app.adapter = a
 
-	if app.agent != nil {
+	if app.agent == nil {
 		agent1, err := app.createAgent()
 		if err != nil {
 			return err
