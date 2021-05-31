@@ -2,7 +2,6 @@ package service
 
 import (
 	"testing"
-	"unsafe"
 
 	"github.com/muka/go-bluetooth/api"
 	"github.com/muka/go-bluetooth/bluez/profile/agent"
@@ -93,8 +92,10 @@ func TestAppPassCodePersistsWithCustomAgent(t *testing.T) {
 	}
 	defer a.Close()
 
-	appAgent := a.Agent()
-	appAgentAsSimple := (*agent.SimpleAgent)(unsafe.Pointer(&appAgent)) // This might be bad
+	appPinCode, err2 := a.Agent().RequestPinCode(a.Agent().Path())
+	if err2 != nil {
+		t.Fatal(err)
+	}
 
-	assert.Equal(t, passCode, appAgentAsSimple.PassCode())
+	assert.Equal(t, passCode, appPinCode)
 }
