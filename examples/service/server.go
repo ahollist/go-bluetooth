@@ -12,10 +12,11 @@ import (
 func serve(adapterID string) error {
 
 	simpleAgent := agent.NewSimpleAgent()
-	simpleAgent.SetPassCode("043210")
+	simpleAgent.SetPassKey(1111)
+	simpleAgent.SetPassCode("1111")
 	options := service.AppOptions{
 		AdapterID:   adapterID,
-		AgentCaps:   agent.CapKeyboardOnly,
+		AgentCaps:   agent.CapKeyboardDisplay,
 		UUIDSuffix:  "-0000-1000-8000-00805F9B34FB",
 		UUID:        "1234",
 		CustomAgent: simpleAgent,
