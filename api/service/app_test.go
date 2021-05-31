@@ -67,13 +67,14 @@ func createTestApp(t *testing.T) *App {
 	return a
 }
 
-func TestApp(t *testing.T) {
-	a := createTestApp(t)
-	defer a.Close()
-}
+//func TestApp(t *testing.T) {
+//	a := createTestApp(t)
+//	defer a.Close()
+//}
 
 func TestAppAgentIsNil(t *testing.T) {
 	a := new(App)
+	defer a.Close()
 	assert.Equal(t, nil, a.agent)
 }
 
@@ -88,6 +89,7 @@ func TestAppPassCodePersistsWithCustomAgent(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	defer a.Close()
 
 	appAgent := a.Agent()
 	appAgentAsSimple := (*agent.SimpleAgent)(unsafe.Pointer(&appAgent)) // This might be bad
