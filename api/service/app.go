@@ -28,6 +28,7 @@ type AppOptions struct {
 	AgentSetAsDefault bool
 	UUIDSuffix        string
 	UUID              string
+	CustomAgent       agent.Agent1Client
 }
 
 // NewApp initialize a new bluetooth service (app)
@@ -65,6 +66,10 @@ func NewApp(options AppOptions) (*App, error) {
 		app.Options.AgentCaps = agent.CapKeyboardDisplay
 	}
 
+	if app.Options.CustomAgent != nil {
+		app.agent = app.Options.CustomAgent
+	}
+
 	appCounter++
 
 	return app, app.init()
@@ -98,11 +103,13 @@ func (app *App) init() error {
 	}
 	app.adapter = a
 
-	agent1, err := app.createAgent()
-	if err != nil {
-		return err
+	if app.agent != nil {
+		agent1, err := app.createAgent()
+		if err != nil {
+			return err
+		}
+		app.agent = agent1
 	}
-	app.agent = agent1
 
 	conn, err := dbus.SystemBus()
 	if err != nil {

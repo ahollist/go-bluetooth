@@ -2,9 +2,12 @@ package service
 
 import (
 	"testing"
+	"unsafe"
 
 	"github.com/muka/go-bluetooth/api"
+	"github.com/muka/go-bluetooth/bluez/profile/agent"
 	log "github.com/sirupsen/logrus"
+	"github.com/stretchr/testify/assert"
 )
 
 func createTestApp(t *testing.T) *App {
@@ -67,4 +70,27 @@ func createTestApp(t *testing.T) *App {
 func TestApp(t *testing.T) {
 	a := createTestApp(t)
 	defer a.Close()
+}
+
+func TestAppAgentIsNil(t *testing.T) {
+	a := new(App)
+	assert.Equal(t, nil, a.agent)
+}
+
+func TestAppPassCodePersistsWithCustomAgent(t *testing.T) {
+	passCode := "043210"
+
+	ag := agent.NewSimpleAgent()
+	ag.SetPassCode(passCode)
+	opt := AppOptions{CustomAgent: ag}
+
+	a, err := NewApp(opt)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	appAgent := a.Agent()
+	appAgentAsSimple := (*agent.SimpleAgent)(unsafe.Pointer(&appAgent)) // This might be bad
+
+	assert.Equal(t, passCode, appAgentAsSimple.PassCode())
 }
