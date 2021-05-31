@@ -15,7 +15,7 @@ func serve(adapterID string) error {
 	simpleAgent.SetPassCode("043210")
 	options := service.AppOptions{
 		AdapterID:   adapterID,
-		AgentCaps:   agent.CapNoInputNoOutput,
+		AgentCaps:   agent.CapDisplayOnly,
 		UUIDSuffix:  "-0000-1000-8000-00805F9B34FB",
 		UUID:        "1234",
 		CustomAgent: simpleAgent,
