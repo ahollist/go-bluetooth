@@ -54,8 +54,8 @@ func serve(adapterID string) error {
 	}
 
 	char1.Properties.Flags = []string{
-		gatt.FlagCharacteristicSecureRead,
-		gatt.FlagCharacteristicSecureWrite,
+		gatt.FlagCharacteristicEncryptAuthenticatedRead,
+		gatt.FlagCharacteristicEncryptAuthenticatedWrite,
 	}
 
 	char1.OnRead(service.CharReadCallback(func(c *service.Char, options map[string]interface{}) ([]byte, error) {
@@ -79,8 +79,8 @@ func serve(adapterID string) error {
 	}
 
 	descr1.Properties.Flags = []string{
-		gatt.FlagCharacteristicSecureRead,
-		gatt.FlagCharacteristicSecureWrite,
+		gatt.FlagCharacteristicEncryptAuthenticatedRead,
+		gatt.FlagCharacteristicEncryptAuthenticatedWrite,
 	}
 
 	descr1.OnRead(service.DescrReadCallback(func(c *service.Descr, options map[string]interface{}) ([]byte, error) {
