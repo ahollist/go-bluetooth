@@ -47,10 +47,12 @@ type SimpleAgent struct {
 }
 
 func (self *SimpleAgent) SetPassKey(passkey uint32) {
+	log.Debug("Set passkey to", passkey)
 	self.passKey = passkey
 }
 
 func (self *SimpleAgent) SetPassCode(pinCode string) {
+	log.Debug("Set pincode to", pinCode)
 	self.pinCode = pinCode
 }
 
