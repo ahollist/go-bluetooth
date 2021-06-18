@@ -130,6 +130,7 @@ func ExposeAdvertisement(adapterID string, props *advertising.LEAdvertisement1Pr
 	if err != nil {
 		return nil, err
 	}
+	log.Trace("Registered LEAdvertisement1 instance")
 
 	cancel := func() {
 		decreaseAdvertismentCounter()
