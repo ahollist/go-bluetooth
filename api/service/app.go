@@ -103,7 +103,8 @@ func (app *App) init() error {
 	}
 	app.adapter = a
 
-	if app.agent == nil {
+	if app.Options.CustomAgent == nil {
+		log.Trace("Creating new Agent for app")
 		agent1, err := app.createAgent()
 		if err != nil {
 			return err
