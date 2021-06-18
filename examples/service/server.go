@@ -6,10 +6,16 @@ import (
 	"github.com/muka/go-bluetooth/api/service"
 	"github.com/muka/go-bluetooth/bluez/profile/agent"
 	"github.com/muka/go-bluetooth/bluez/profile/gatt"
+	"github.com/muka/go-bluetooth/hw/linux/btmgmt"
 	log "github.com/sirupsen/logrus"
 )
 
 func serve(adapterID string) error {
+	btman := btmgmt.NewBtMgmt(adapterID)
+	err := btman.SetSsp(true)
+	if err != nil {
+		return err
+	}
 
 	simpleAgent := agent.NewSimpleAgent()
 	simpleAgent.SetPassKey(1111)
